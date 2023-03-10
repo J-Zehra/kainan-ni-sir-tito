@@ -153,7 +153,7 @@ function KNamProducts() {
           );
         })}
       </Wrap>
-      {selectedProduct ? (
+      {selectedProduct && isOpen ? (
         <KNamAddToCartModal
           isOpen={isOpen}
           onClose={onClose}

@@ -28,30 +28,21 @@ function SlideCartItem({
   const appContext = useApp();
   const [totalAmount, setTotalAmount] = useState<number>(0);
 
-  useEffect(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
-    if (storedCartItems) {
-      appContext?.setCartItems(JSON.parse(storedCartItems));
-    }
-  }, []);
-
   const removeItem = (product: string) => {
-    const updatedCartItems = appContext?.cartItems.filter(
-      (cartItem) => cartItem.productName !== product
-    );
-    if (updatedCartItems) {
+    if (appContext?.cartItems) {
+      const updatedCartItems = appContext?.cartItems.filter(
+        (cartItem) => cartItem.productName !== product
+      );
       appContext?.setCartItems(updatedCartItems);
     }
   };
 
   useEffect(() => {
-    if (appContext?.cartItems) {
-      appContext.cartItems.forEach((item) => {
-        setTotalAmount((prev) => prev + item.totalAmount);
-      });
-    } else {
-      setTotalAmount(0);
-    }
+    let total = 0;
+    appContext?.cartItems.forEach((item) => {
+      total += item.totalAmount;
+    });
+    setTotalAmount(total);
   }, [appContext?.cartItems]);
 
   return (

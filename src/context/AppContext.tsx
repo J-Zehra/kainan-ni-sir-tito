@@ -43,11 +43,14 @@ function AppContext({ children }: ChildrenProp) {
   });
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    } else {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
     }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
   // SET THE VALUES

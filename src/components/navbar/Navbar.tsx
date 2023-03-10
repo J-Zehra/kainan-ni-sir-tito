@@ -10,8 +10,6 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { ReactElement, useEffect } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import Lottie from "react-lottie-player";
 import { Link } from "react-router-dom";
 import useApp from "../../hooks/useApp";
@@ -29,13 +27,6 @@ function Navbar(props: NavItems): ReactElement {
 
   // TRACK SCREEN SIZE TO ADJUST THE NAV APPEARANCE
   const [isSmallerThan850] = useMediaQuery("(max-width: 48em)");
-
-  useEffect(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
-    if (storedCartItems) {
-      appContext?.setCartItems(JSON.parse(storedCartItems));
-    }
-  }, []);
 
   return (
     <Box

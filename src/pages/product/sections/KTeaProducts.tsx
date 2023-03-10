@@ -182,7 +182,7 @@ function KTeaProducts() {
           );
         })}
       </Wrap>
-      {selectedProduct ? (
+      {selectedProduct && isOpen ? (
         <KTeaAddToCartModal
           isOpen={isOpen}
           onClose={onClose}

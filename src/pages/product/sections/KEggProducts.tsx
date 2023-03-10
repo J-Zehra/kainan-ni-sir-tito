@@ -161,7 +161,7 @@ function KEggProducts() {
           );
         })}
       </Wrap>
-      {selectedProduct ? (
+      {selectedProduct && isOpen ? (
         <KEggAddToCartModal
           isOpen={isOpen}
           onClose={onClose}
