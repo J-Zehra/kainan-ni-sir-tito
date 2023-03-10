@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ProductSectionTitle from "../components/ProductSectionTitle";
-import CheeseCake from "../../../assets/ktea/Cheesecake__1_-removebg-preview.png";
+import CheeseCake from "../../../assets/ktea/Cheesecake__1_-removebg-preview.webp";
 import ChocoCheesCake from "../../../assets/ktea/Choco___Choco_Cheesecake-removebg-preview.png";
 import Hokkaido from "../../../assets/ktea/Hokkaido-removebg-preview.png";
 import Macha from "../../../assets/ktea/Macha-removebg-preview.png";
