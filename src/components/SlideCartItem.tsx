@@ -1,0 +1,196 @@
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Flex,
+  HStack,
+  Image,
+  Slide,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { BsFillPatchCheckFill, BsFillTrashFill } from "react-icons/bs";
+import Lottie from "react-lottie-player";
+import empty from "../assets/empty.json";
+import useApp from "../hooks/useApp";
+import { CartItemModel } from "../utils/interfaces/AppInterfaces";
+
+function SlideCartItem({
+  isOpen,
+  onToggle,
+}: {
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const appContext = useApp();
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      appContext?.setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
+
+  const removeItem = (product: string) => {
+    const updatedCartItems = appContext?.cartItems.filter(
+      (cartItem) => cartItem.productName !== product
+    );
+    if (updatedCartItems) {
+      appContext?.setCartItems(updatedCartItems);
+    }
+  };
+
+  useEffect(() => {
+    if (appContext?.cartItems) {
+      appContext.cartItems.forEach((item) => {
+        setTotalAmount((prev) => prev + item.totalAmount);
+      });
+    } else {
+      setTotalAmount(0);
+    }
+  }, [appContext?.cartItems]);
+
+  return (
+    <Slide direction="right" in={isOpen} style={{ zIndex: 10 }}>
+      <VStack
+        w="30rem"
+        h="100vh"
+        boxShadow="1px 1px 18px rgba(0, 0, 0, .3)"
+        pos="absolute"
+        right={0}
+        bg="#ECECEC"
+      >
+        <Box
+          color="palette.secondary"
+          p="1rem"
+          fontSize="1.5rem"
+          onClick={onToggle}
+          alignSelf="end"
+          cursor="pointer"
+        >
+          <AiOutlineClose />
+        </Box>
+        <Text
+          paddingInlineStart="1rem"
+          textAlign="start"
+          w="100%"
+          color="palette.secondary"
+          fontWeight="bold"
+          fontSize="1.4rem"
+          paddingBottom="1.2rem"
+        >
+          My Cart
+        </Text>
+        <Flex flexDir="column" p="1rem" gap="1rem" w="100%" h="100%">
+          <HStack
+            w="100%"
+            justifyContent="space-between"
+            bg="palette.accent"
+            borderRadius=".5rem"
+            p=".6rem 1.2rem"
+          >
+            <HStack>
+              <Text fontSize=".8rem" fontFamily="inter">
+                Total Amount:
+              </Text>
+              <Text fontSize="1.3rem" fontWeight="bold">
+                ₱{totalAmount}
+              </Text>
+            </HStack>
+
+            <Button
+              border="1px solid"
+              borderColor="palette.primary"
+              _hover={{ opacity: ".9" }}
+              leftIcon={<BsFillPatchCheckFill />}
+              p="1.5rem"
+              bg="palette.accent"
+              color="palette.primary"
+            >
+              Place Order
+            </Button>
+          </HStack>
+          <VStack w="100%">
+            {appContext?.cartItems && appContext?.cartItems?.length > 0 ? (
+              appContext?.cartItems.map((item: CartItemModel) => {
+                return (
+                  <HStack
+                    w="100%"
+                    borderRadius=".5em"
+                    p=".5rem 1rem"
+                    justifyContent="space-between"
+                    color="palette.secondary"
+                    bg="white"
+                    align="center"
+                    key={item.productName}
+                  >
+                    <HStack spacing="1rem">
+                      <Box w="3rem">
+                        <Image src={item.image} />
+                      </Box>
+                      <VStack align="start" spacing=".1rem">
+                        <Text fontWeight="semibold" fontSize="1.1rem">
+                          {item.productName}
+                        </Text>
+                        <HStack fontSize=".9rem">
+                          <Text
+                            fontWeight="normal"
+                            fontFamily="inter"
+                            fontSize=".8rem"
+                          >
+                            {item.quantity}
+                          </Text>
+                          <Text
+                            fontWeight="normal"
+                            fontFamily="inter"
+                            fontSize=".8rem"
+                          >
+                            {item.size || item.pieces || ""}
+                          </Text>
+                        </HStack>
+                      </VStack>
+                    </HStack>
+                    <Box
+                      color="red"
+                      fontSize="1.2rem"
+                      opacity=".8"
+                      cursor="pointer"
+                      onClick={() => removeItem(item.productName)}
+                      _hover={{ opacity: "1" }}
+                    >
+                      <BsFillTrashFill />
+                    </Box>
+                  </HStack>
+                );
+              })
+            ) : (
+              <Center flexDir="column">
+                <Lottie
+                  loop
+                  animationData={empty}
+                  play
+                  style={{ width: 250, height: 250 }}
+                />
+                <Text
+                  color="palette.secondary"
+                  fontFamily="lato"
+                  opacity=".5"
+                  fontSize="1rem"
+                  fontWeight="semibold"
+                >
+                  There are no items in the cart yet.
+                </Text>
+              </Center>
+            )}
+          </VStack>
+        </Flex>
+      </VStack>
+    </Slide>
+  );
+}
+
+export default SlideCartItem;

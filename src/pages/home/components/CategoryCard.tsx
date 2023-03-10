@@ -1,0 +1,65 @@
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  VStack,
+  WrapItem,
+} from "@chakra-ui/react";
+
+interface CategoryProps {
+  items: string[];
+  description: string;
+  image: string;
+}
+
+function CategoryCard(props: CategoryProps) {
+  const { items, description, image } = props;
+  return (
+    <WrapItem>
+      <Flex
+        h="30rem"
+        w="23rem"
+        bg="palette.accent"
+        flexDir="column"
+        borderRadius=".6rem"
+        boxShadow="5px 8px 16px rgba(0, 0, 0, .15)"
+      >
+        <Center pos="relative" flex={1.2} bg="#ECECEC" borderTopRadius=".5rem">
+          <Image src={image} />
+          <HStack
+            justifyContent="space-around"
+            pos="absolute"
+            w="90%"
+            h="4rem"
+            bottom="-3rem"
+            bg="#F5F5F5"
+            borderRadius=".3rem"
+            boxShadow="5px 8px 16px rgba(0, 0, 0, .15)"
+          >
+            {items.map((item) => {
+              return <Image w="2rem" src={item} key={item} />;
+            })}
+          </HStack>
+        </Center>
+        <Center flex={2} flexDir="column">
+          <Center flex={2}>
+            {/* <Text textAlign="justify" fontFamily="lato">
+              {description}
+            </Text> */}
+          </Center>
+          <Center flex={1}>
+            <Button bg="palette.primary" p="1.5rem" color="palette.accent">
+              See Category
+            </Button>
+          </Center>
+        </Center>
+      </Flex>
+    </WrapItem>
+  );
+}
+
+export default CategoryCard;
