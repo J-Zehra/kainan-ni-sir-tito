@@ -13,6 +13,7 @@ import {
   RadioGroup,
   Stack,
   Text,
+  useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -24,6 +25,7 @@ import {
   CartItemModel,
   KTeaProductModel,
 } from "../../../utils/interfaces/AppInterfaces";
+import PlaceOrderModal from "./PlaceOrderModal";
 
 function KTeaAddToCartModal({
   isOpen,
@@ -71,6 +73,12 @@ function KTeaAddToCartModal({
     setQuantity(1);
     onClose();
   };
+
+  const {
+    isOpen: isPlaceOrderModalOpen,
+    onOpen: onPlaceOrderModalOpen,
+    onClose: onPlaceOrderModalClose,
+  } = useDisclosure();
 
   return (
     <Modal isOpen={isOpen} isCentered preserveScrollBarGap onClose={onClose}>
@@ -169,12 +177,23 @@ function KTeaAddToCartModal({
               p="1.5rem"
               bg="palette.accent"
               color="palette.primary"
+              onClick={onPlaceOrderModalOpen}
             >
               Place Order
             </Button>
           </HStack>
         </ModalFooter>
       </ModalContent>
+      {isPlaceOrderModalOpen ? (
+        <PlaceOrderModal
+          productName={productInfo.productName}
+          quantity={quantity}
+          size={size}
+          totalAmount={totalAmount}
+          isOpen={isPlaceOrderModalOpen}
+          onClose={onPlaceOrderModalClose}
+        />
+      ) : null}
     </Modal>
   );
 }

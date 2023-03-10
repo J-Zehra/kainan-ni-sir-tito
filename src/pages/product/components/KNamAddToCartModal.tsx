@@ -14,6 +14,7 @@ import {
   RadioGroup,
   Stack,
   Text,
+  useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -26,6 +27,7 @@ import {
   KNamProductModel,
 } from "../../../utils/interfaces/AppInterfaces";
 import GarlicMayoDip from "../../../assets/knam/GARLIC_MAYO_DIP-removebg-preview.webp";
+import PlaceOrderModal from "./PlaceOrderModal";
 
 function KNamAddToCartModal({
   isOpen,
@@ -95,6 +97,12 @@ function KNamAddToCartModal({
     setAddOnQuantity(0);
     onClose();
   };
+
+  const {
+    isOpen: isPlaceOrderModalOpen,
+    onOpen: onPlaceOrderModalOpen,
+    onClose: onPlaceOrderModalClose,
+  } = useDisclosure();
 
   return (
     <Modal isOpen={isOpen} isCentered preserveScrollBarGap onClose={onClose}>
@@ -238,12 +246,24 @@ function KNamAddToCartModal({
               p="1.5rem"
               bg="palette.accent"
               color="palette.primary"
+              onClick={onPlaceOrderModalOpen}
             >
               Place Order
             </Button>
           </HStack>
         </ModalFooter>
       </ModalContent>
+      {isPlaceOrderModalOpen ? (
+        <PlaceOrderModal
+          productName={productInfo.productName}
+          quantity={quantity}
+          pieces={pieces}
+          addOns={[{ name: "Garlic Mayo Dip", quantity }]}
+          totalAmount={totalAmount}
+          isOpen={isPlaceOrderModalOpen}
+          onClose={onPlaceOrderModalClose}
+        />
+      ) : null}
     </Modal>
   );
 }

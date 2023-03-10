@@ -14,6 +14,7 @@ import {
   RadioGroup,
   Stack,
   Text,
+  useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -24,9 +25,9 @@ import useApp from "../../../hooks/useApp";
 import {
   CartItemModel,
   KEggProductModel,
-  KNamProductModel,
 } from "../../../utils/interfaces/AppInterfaces";
-import GarlicMayoDip from "../../../assets/knam/GARLIC_MAYO_DIP-removebg-preview.webp";
+// eslint-disable-next-line import/no-cycle
+import PlaceOrderModal from "./PlaceOrderModal";
 
 function KEggAddToCartModal({
   isOpen,
@@ -91,6 +92,12 @@ function KEggAddToCartModal({
     setMapleButterQuantity(0);
     onClose();
   };
+
+  const {
+    isOpen: isPlaceOrderModalOpen,
+    onOpen: onPlaceOrderModalOpen,
+    onClose: onPlaceOrderModalClose,
+  } = useDisclosure();
 
   return (
     <Modal isOpen={isOpen} isCentered preserveScrollBarGap onClose={onClose}>
@@ -264,12 +271,26 @@ function KEggAddToCartModal({
               p="1.5rem"
               bg="palette.accent"
               color="palette.primary"
+              onClick={onPlaceOrderModalOpen}
             >
               Place Order
             </Button>
           </HStack>
         </ModalFooter>
       </ModalContent>
+      {isPlaceOrderModalOpen ? (
+        <PlaceOrderModal
+          productName={productInfo.productName}
+          quantity={quantity}
+          totalAmount={totalAmount}
+          addOns={[
+            { name: "Garlic Butter", quantity: garlicButterQuantity },
+            { name: "Maple Butter", quantity: mapleButterQuantity },
+          ]}
+          isOpen={isPlaceOrderModalOpen}
+          onClose={onPlaceOrderModalClose}
+        />
+      ) : null}
     </Modal>
   );
 }

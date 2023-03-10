@@ -97,6 +97,7 @@ function KEggProducts() {
 
   return (
     <Box paddingTop="3rem">
+      {/* <SingleOrderTemplate /> */}
       <ProductSectionTitle title="K-Egg" />
       <Wrap p="1rem" spacing="1.5rem" paddingTop="2rem" justify="center">
         {KEggProducts.map((item, index) => {
