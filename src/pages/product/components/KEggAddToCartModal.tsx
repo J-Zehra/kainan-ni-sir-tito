@@ -23,58 +23,54 @@ import { BsCartPlus, BsFillPatchCheckFill } from "react-icons/bs";
 import useApp from "../../../hooks/useApp";
 import {
   CartItemModel,
+  KEggProductModel,
   KNamProductModel,
 } from "../../../utils/interfaces/AppInterfaces";
 import GarlicMayoDip from "../../../assets/knam/GARLIC_MAYO_DIP-removebg-preview.webp";
 
-function KNamAddToCartModal({
+function KEggAddToCartModal({
   isOpen,
   onClose,
   productInfo,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  productInfo: KNamProductModel;
+  productInfo: KEggProductModel;
 }) {
-  const GarlicMayoDipPrice = 28;
+  const GarlicButter = 12;
+  const MapleButter = 15;
 
-  const [pieces, setPieces] = useState<string>("5 Pieces");
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const [addOnQuantity, setAddOnQuantity] = useState<number>(0);
+  const [garlicButterQuantity, setGarlicButterQuantity] = useState<number>(0);
+  const [mapleButterQuantity, setMapleButterQuantity] = useState<number>(0);
   const appContext = useApp();
   const toast = useToast();
 
   useEffect(() => {
-    if (pieces === "5 Pieces") {
-      if (addOnQuantity > 0) {
-        setTotalAmount(
-          productInfo.fivePieces * quantity + GarlicMayoDipPrice * addOnQuantity
-        );
-      } else {
-        setTotalAmount(productInfo.fivePieces * quantity);
-      }
-    } else if (pieces === "10 Pieces") {
-      if (addOnQuantity > 0) {
-        setTotalAmount(
-          productInfo.tenPieces * quantity + GarlicMayoDipPrice * addOnQuantity
-        );
-      } else {
-        setTotalAmount(productInfo.tenPieces * quantity);
-      }
+    if (garlicButterQuantity > 0 && mapleButterQuantity > 0) {
+      setTotalAmount(
+        productInfo.price * quantity +
+          GarlicButter * garlicButterQuantity +
+          MapleButter * mapleButterQuantity
+      );
+    } else if (garlicButterQuantity > 0 && mapleButterQuantity === 0) {
+      setTotalAmount(
+        productInfo.price * quantity + GarlicButter * garlicButterQuantity
+      );
+    } else if (garlicButterQuantity === 0 && mapleButterQuantity > 0) {
+      setTotalAmount(
+        productInfo.price * quantity + MapleButter * mapleButterQuantity
+      );
+    } else {
+      setTotalAmount(productInfo.price * quantity);
     }
-  }, [
-    addOnQuantity,
-    pieces,
-    productInfo.fivePieces,
-    productInfo.tenPieces,
-    quantity,
-  ]);
+  }, [garlicButterQuantity, mapleButterQuantity, productInfo.price, quantity]);
 
   const addToCart = () => {
     const orderData: CartItemModel = {
       productName: productInfo.productName,
-      pieces,
+      price: productInfo.price,
       quantity,
       image: productInfo.image,
       totalAmount,
@@ -89,10 +85,10 @@ function KNamAddToCartModal({
       isClosable: true,
       position: "top",
     });
-    setPieces("5 Pieces");
     setTotalAmount(0);
     setQuantity(1);
-    setAddOnQuantity(0);
+    setGarlicButterQuantity(0);
+    setMapleButterQuantity(0);
     onClose();
   };
 
@@ -107,29 +103,6 @@ function KNamAddToCartModal({
         <ModalBody>
           <VStack gap="1.5rem">
             <HStack w="100%" justifyContent="space-between">
-              <VStack align="start" gap=".1rem">
-                <Text fontSize="1rem" fontWeight="semibold">
-                  Pack
-                </Text>
-                <RadioGroup
-                  colorScheme="orange"
-                  onChange={setPieces}
-                  value={pieces}
-                >
-                  <Stack direction="row" gap="1.5rem" fontFamily="inter">
-                    <Radio value="5 Pieces">
-                      <Text fontSize=".89rem" fontWeight="medium">
-                        5 Pieces
-                      </Text>
-                    </Radio>
-                    <Radio value="10 Pieces">
-                      <Text fontSize=".9rem" fontWeight="medium">
-                        10 Pieces
-                      </Text>
-                    </Radio>
-                  </Stack>
-                </RadioGroup>
-              </VStack>
               <VStack spacing={0}>
                 <Text fontSize=".6rem" fontFamily="inter">
                   Total Amount
@@ -184,45 +157,98 @@ function KNamAddToCartModal({
                 <Text fontSize="1rem" fontWeight="semibold">
                   Add-ons
                 </Text>
-                <HStack gap="1.2rem">
-                  <Image src={GarlicMayoDip} w="2.5rem" />
-                  <Text fontFamily="inter" fontSize=".9rem">
-                    Garlic Mayo Dip
-                  </Text>
-                  <HStack fontSize="1.3rem" gap="1.5rem" fontFamily="inter">
-                    <Box
-                      opacity=".7"
-                      _hover={{ opacity: "1" }}
-                      transition="all .3s ease"
-                      onClick={() => {
-                        if (quantity > 0) {
-                          setAddOnQuantity((prev) => prev - 1);
-                        }
-                      }}
-                    >
-                      <AiOutlineMinusCircle />
-                    </Box>
-                    <Text
-                      color="palette.accent"
-                      fontSize="1rem"
-                      fontWeight="bold"
-                    >
-                      {addOnQuantity}
+                <VStack justify="start">
+                  <HStack gap="1.2rem">
+                    <Text fontFamily="inter" fontSize=".9rem">
+                      Garlic Butter
                     </Text>
-                    <Box
-                      opacity=".7"
-                      _hover={{ opacity: "1" }}
-                      transition="all .3s ease"
-                      onClick={() => {
-                        if (quantity < 50) {
-                          setAddOnQuantity((prev) => prev + 1);
-                        }
-                      }}
+                    <HStack fontSize="1.3rem" gap="1.5rem" fontFamily="inter">
+                      <Box
+                        opacity=".7"
+                        _hover={{ opacity: "1" }}
+                        transition="all .3s ease"
+                        onClick={() => {
+                          if (quantity > 0) {
+                            setGarlicButterQuantity((prev) => prev - 1);
+                          }
+                        }}
+                      >
+                        <AiOutlineMinusCircle />
+                      </Box>
+                      <Text
+                        color="palette.accent"
+                        fontSize="1rem"
+                        fontWeight="bold"
+                      >
+                        {garlicButterQuantity}
+                      </Text>
+                      <Box
+                        opacity=".7"
+                        _hover={{ opacity: "1" }}
+                        transition="all .3s ease"
+                        onClick={() => {
+                          if (quantity < 50) {
+                            setGarlicButterQuantity((prev) => prev + 1);
+                          }
+                        }}
+                      >
+                        <AiOutlinePlusCircle />
+                      </Box>
+                    </HStack>
+                    <Text
+                      fontSize=".8rem"
+                      color="palette.accent"
+                      fontWeight="semibold"
                     >
-                      <AiOutlinePlusCircle />
-                    </Box>
+                      +{GarlicButter}
+                    </Text>
                   </HStack>
-                </HStack>
+                  <HStack gap="1.2rem">
+                    <Text fontFamily="inter" fontSize=".9rem">
+                      Maple Butter
+                    </Text>
+                    <HStack fontSize="1.3rem" gap="1.5rem" fontFamily="inter">
+                      <Box
+                        opacity=".7"
+                        _hover={{ opacity: "1" }}
+                        transition="all .3s ease"
+                        onClick={() => {
+                          if (quantity > 0) {
+                            setMapleButterQuantity((prev) => prev - 1);
+                          }
+                        }}
+                      >
+                        <AiOutlineMinusCircle />
+                      </Box>
+                      <Text
+                        color="palette.accent"
+                        fontSize="1rem"
+                        fontWeight="bold"
+                      >
+                        {mapleButterQuantity}
+                      </Text>
+                      <Box
+                        opacity=".7"
+                        _hover={{ opacity: "1" }}
+                        transition="all .3s ease"
+                        onClick={() => {
+                          if (quantity < 50) {
+                            setMapleButterQuantity((prev) => prev + 1);
+                          }
+                        }}
+                      >
+                        <AiOutlinePlusCircle />
+                      </Box>
+                    </HStack>
+                    <Text
+                      fontSize=".8rem"
+                      color="palette.accent"
+                      fontWeight="semibold"
+                    >
+                      +{MapleButter}
+                    </Text>
+                  </HStack>
+                </VStack>
               </VStack>
             </HStack>
           </VStack>
@@ -248,4 +274,4 @@ function KNamAddToCartModal({
   );
 }
 
-export default KNamAddToCartModal;
+export default KEggAddToCartModal;
