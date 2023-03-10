@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ProductSectionTitle from "../components/ProductSectionTitle";
-import HikoryBBQ from "../../../../public/folder/HIKORY_BBQ.png";
+import HikoryBBQ from "../../../assets/knam/HIKORY_BBQ.png";
 import HoneySriracha from "../../../assets/knam/HONEY_SRIRACHA.png";
 import SoyGarlic from "../../../assets/knam/SOY_GARLIC.png";
 import SpicyBBQ from "../../../assets/knam/SPICY_BBQ.png";
