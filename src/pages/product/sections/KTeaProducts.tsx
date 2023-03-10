@@ -16,14 +16,14 @@ import {
 import React, { useState } from "react";
 import ProductSectionTitle from "../components/ProductSectionTitle";
 import CheeseCake from "../../../assets/ktea/Cheesecake__1_-removebg-preview.webp";
-import ChocoCheesCake from "../../../assets/ktea/Choco___Choco_Cheesecake-removebg-preview.png";
-import Hokkaido from "../../../assets/ktea/Hokkaido-removebg-preview.png";
-import Macha from "../../../assets/ktea/Macha-removebg-preview.png";
-import Okinawa from "../../../assets/ktea/Okinawa-removebg-preview.png";
-import OreoCheeseCake from "../../../assets/ktea/Oreo_Cheesecake-removebg-preview.png";
-import OreoMatcha from "../../../assets/ktea/Oreo_Matcha-removebg-preview.png";
-import RedVelvet from "../../../assets/ktea/Red_Velvet_Cheesecake-removebg-preview.png";
-import WinterMelon from "../../../assets/ktea/WinterMelon-removebg-preview.png";
+import ChocoCheesCake from "../../../assets/ktea/Choco___Choco_Cheesecake-removebg-preview.webp";
+import Hokkaido from "../../../assets/ktea/Hokkaido-removebg-preview.webp";
+import Macha from "../../../assets/ktea/Macha-removebg-preview.webp";
+import Okinawa from "../../../assets/ktea/Okinawa-removebg-preview.webp";
+import OreoCheeseCake from "../../../assets/ktea/Oreo_Cheesecake-removebg-preview.webp";
+import OreoMatcha from "../../../assets/ktea/Oreo_Matcha-removebg-preview.webp";
+import RedVelvet from "../../../assets/ktea/Red_Velvet_Cheesecake-removebg-preview.webp";
+import WinterMelon from "../../../assets/ktea/WinterMelon-removebg-preview.webp";
 import { KTeaProductModel } from "../../../utils/interfaces/AppInterfaces";
 import KTeaAddToCartModal from "../components/KTeaAddToCartModal";
 

@@ -14,11 +14,11 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ProductSectionTitle from "../components/ProductSectionTitle";
-import HikoryBBQ from "../../../assets/knam/HIKORY_BBQ.png";
-import HoneySriracha from "../../../assets/knam/HONEY_SRIRACHA.png";
-import SoyGarlic from "../../../assets/knam/SOY_GARLIC.png";
-import SpicyBBQ from "../../../assets/knam/SPICY_BBQ.png";
-import SpicyKorean from "../../../assets/knam/SPICY_KOREAN.png";
+import HikoryBBQ from "../../../assets/knam/HIKORY_BBQ.webp";
+import HoneySriracha from "../../../assets/knam/HONEY_SRIRACHA.webp";
+import SoyGarlic from "../../../assets/knam/SOY_GARLIC.webp";
+import SpicyBBQ from "../../../assets/knam/SPICY_BBQ.webp";
+import SpicyKorean from "../../../assets/knam/SPICY_KOREAN.webp";
 import KNamAddToCartModal from "../components/KNamAddToCartModal";
 import { KNamProductModel } from "../../../utils/interfaces/AppInterfaces";
 
