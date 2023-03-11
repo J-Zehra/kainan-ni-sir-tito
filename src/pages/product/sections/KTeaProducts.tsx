@@ -180,7 +180,9 @@ function KTeaProducts() {
                     appContext.cartItems.filter(
                       (cart) => cart.productName === item.productName
                     ).length > 0 ? (
-                      <Text>Product already in cart</Text>
+                      <Text color="palette.primary">
+                        Product already in cart
+                      </Text>
                     ) : (
                       <Button
                         onClick={() => {
