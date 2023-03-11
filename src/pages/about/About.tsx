@@ -15,7 +15,7 @@ function About() {
         bgPos="center"
         bgSize="cover"
       >
-        <Text fontSize="2rem">ABOUT PAGE NI SIR TITO</Text>
+        <Text fontSize="2rem">ABOUT PAGE </Text>
       </Center>
     </Box>
   );
