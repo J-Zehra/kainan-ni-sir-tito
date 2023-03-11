@@ -7,7 +7,7 @@ function VideoPromotion() {
       id="promote"
       w={breakPoints}
       margin="auto"
-      paddingBlock="3rem"
+      paddingBlock="1rem"
       placeContent="center"
       flexDir="column"
     >
