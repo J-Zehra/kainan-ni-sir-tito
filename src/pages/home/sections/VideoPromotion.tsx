@@ -12,7 +12,7 @@ function VideoPromotion() {
       flexDir="column"
     >
       <Text color="palette.secondary" paddingBlock="2rem">
-        Basta text dito
+        Satisfy your Cravings
       </Text>
       <AspectRatio
         ratio={4 / 2}
