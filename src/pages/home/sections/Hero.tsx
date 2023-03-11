@@ -46,8 +46,8 @@ function Hero() {
             </Highlight>
           </Text>
           <Text w="60%" fontSize="1.4rem" fontWeight="light" fontFamily="lato">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Experience the perfect blend of sweet, salty, and spicy as you
+            indulge in the deliciousness of Korean food.
           </Text>
           <HStack spacing="1rem" paddingTop="2.5rem">
             <Button
