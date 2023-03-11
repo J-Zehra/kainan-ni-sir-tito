@@ -84,7 +84,7 @@ function KNamProducts() {
                     color="palette.primary"
                     align="center"
                   >
-                    <Image src={item.image} w="5rem" h="8rem" />
+                    <Image src={item.image} w="8rem" h="6rem" />
                     <Text
                       fontWeight="bold"
                       textAlign="center"
