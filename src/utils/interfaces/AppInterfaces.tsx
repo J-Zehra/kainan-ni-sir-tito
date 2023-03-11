@@ -22,7 +22,7 @@ export interface KNamProductModel {
   fivePieces: number;
   tenPieces: number;
   description: string;
-  addOn: AddOn[];
+  addOn?: AddOn[];
 }
 
 export interface KEggProductModel {
@@ -30,7 +30,7 @@ export interface KEggProductModel {
   productName: string;
   price: number;
   description: string;
-  addOn: AddOn[];
+  addOn?: AddOn[];
 }
 
 export interface CartItemModel {

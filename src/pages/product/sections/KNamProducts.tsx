@@ -21,6 +21,7 @@ import SpicyBBQ from "../../../assets/knam/SPICY_BBQ.webp";
 import SpicyKorean from "../../../assets/knam/SPICY_KOREAN.webp";
 import KNamAddToCartModal from "../components/KNamAddToCartModal";
 import { KNamProductModel } from "../../../utils/interfaces/AppInterfaces";
+import useProductNavObserver from "../../../hooks/useProductNavObserver";
 
 function KNamProducts() {
   const KNamProducts = [
@@ -64,8 +65,10 @@ function KNamProducts() {
   const [selectedProduct, setSelectedProduct] = useState<KNamProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { ref } = useProductNavObserver("Ko-Nam");
+
   return (
-    <Box paddingTop="3rem">
+    <Box ref={ref} paddingTop="3rem">
       <ProductSectionTitle title="Ko-Nam" />
       <Wrap p="1rem" spacing="1.5rem" paddingTop="2rem" justify="center">
         {KNamProducts.map((item) => {

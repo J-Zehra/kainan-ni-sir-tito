@@ -26,6 +26,7 @@ import RedVelvet from "../../../assets/ktea/Red_Velvet_Cheesecake-removebg-previ
 import WinterMelon from "../../../assets/ktea/WinterMelon-removebg-preview.webp";
 import { KTeaProductModel } from "../../../utils/interfaces/AppInterfaces";
 import KTeaAddToCartModal from "../components/KTeaAddToCartModal";
+import useProductNavObserver from "../../../hooks/useProductNavObserver";
 
 function KTeaProducts() {
   const KTeaProducts = [
@@ -96,9 +97,10 @@ function KTeaProducts() {
 
   const [selectedProduct, setSelectedProduct] = useState<KTeaProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { ref } = useProductNavObserver("Ko-Tea");
 
   return (
-    <Box paddingTop="3rem">
+    <Box ref={ref} paddingTop="3rem">
       <ProductSectionTitle title="Ko-Tea" />
       <Wrap p="1rem" spacing="1.5rem" paddingTop="2rem" justify="center">
         {KTeaProducts.map((item) => {

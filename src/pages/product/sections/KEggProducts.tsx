@@ -27,6 +27,7 @@ import MozzaDog from "../../../assets/corndog/MOZZADOG.webp";
 import ChickenPork from "../../../assets/corndog/CHICKEN_PORK_FLOSS_CORNDOG.webp";
 import { KEggProductModel } from "../../../utils/interfaces/AppInterfaces";
 import KEggAddToCartModal from "../components/KEggAddToCartModal";
+import useProductNavObserver from "../../../hooks/useProductNavObserver";
 
 function KEggProducts() {
   const KEggProducts = [
@@ -95,8 +96,10 @@ function KEggProducts() {
   const [selectedProduct, setSelectedProduct] = useState<KEggProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { ref } = useProductNavObserver("K-Egg");
+
   return (
-    <Box paddingTop="3rem">
+    <Box ref={ref} paddingTop="3rem">
       {/* <SingleOrderTemplate /> */}
       <ProductSectionTitle title="K-Egg" />
       <Wrap p="1rem" spacing="1.5rem" paddingTop="2rem" justify="center">

@@ -15,15 +15,18 @@ interface ChildrenProp {
 interface Values {
   scrolled: boolean;
   activeNav: string;
+  activeProductNav: string;
   cartItems: CartItemModel[];
   setCartItems: Dispatch<SetStateAction<CartItemModel[]>>;
   setActiveNav: Dispatch<SetStateAction<string>>;
+  setActiveProductNav: Dispatch<SetStateAction<string>>;
 }
 
 export const ApplicationContext = createContext<Values | null>(null);
 
 function AppContext({ children }: ChildrenProp) {
   const [activeNav, setActiveNav] = useState<string>("Home");
+  const [activeProductNav, setActiveProductNav] = useState("Ko-Tea");
   const [cartItems, setCartItems] = useState<CartItemModel[]>([]);
 
   // INITIALIZE A STATE TO TRACK IF THE PAGE IS SCROLLED
@@ -62,13 +65,15 @@ function AppContext({ children }: ChildrenProp) {
   const values = useMemo(() => {
     const items: Values = {
       scrolled,
+      activeProductNav,
+      setActiveProductNav,
       cartItems,
       setCartItems,
       activeNav,
       setActiveNav,
     };
     return items;
-  }, [activeNav, cartItems, scrolled]);
+  }, [activeNav, activeProductNav, cartItems, scrolled]);
 
   return (
     <ApplicationContext.Provider value={values}>

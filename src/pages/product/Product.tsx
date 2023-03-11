@@ -4,10 +4,11 @@ import { Link, Outlet } from "react-router-dom";
 import useObserver from "../../hooks/useObserver";
 import BgImage from "../../assets/bgImage.webp";
 import breakPoints from "../../utils/interfaces/Breakpoints";
+import useApp from "../../hooks/useApp";
 
 function Product() {
   const { ref } = useObserver("Products");
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const context = useApp();
 
   const tabs = [
     { label: "Ko-Tea", link: "" },
@@ -39,14 +40,17 @@ function Product() {
               <Link key={item.label} to={item.link}>
                 <Text
                   transition="all .3s ease"
-                  onClick={() => setActiveTab(index)}
                   color={
-                    activeTab === index
+                    context?.activeProductNav === item.label
                       ? "palette.primary"
                       : "palette.secondary"
                   }
                   cursor="pointer"
-                  bg={activeTab === index ? "palette.accent" : "#ECECEC"}
+                  bg={
+                    context?.activeProductNav === item.label
+                      ? "palette.accent"
+                      : "#ECECEC"
+                  }
                   p=".5rem 1.5rem"
                   borderLeftRadius={index === 0 ? "20rem" : ""}
                   borderRightRadius={index === tabs.length - 1 ? "20rem" : ""}

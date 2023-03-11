@@ -9,15 +9,17 @@ import {
   VStack,
   WrapItem,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 interface CategoryProps {
   items: string[];
   description: string;
   image: string;
+  link: string;
 }
 
 function CategoryCard(props: CategoryProps) {
-  const { items, description, image } = props;
+  const { items, link, description, image } = props;
   return (
     <WrapItem>
       <Flex
@@ -52,7 +54,13 @@ function CategoryCard(props: CategoryProps) {
             </Text> */}
           </Center>
           <Center flex={1}>
-            <Button bg="palette.primary" p="1.5rem" color="palette.accent">
+            <Button
+              as={Link}
+              to={link}
+              bg="palette.primary"
+              p="1.5rem"
+              color="palette.accent"
+            >
               See Category
             </Button>
           </Center>

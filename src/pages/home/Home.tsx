@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Highlight,
-  HStack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { ReactElement } from "react";
 import useObserver from "../../hooks/useObserver";
 import Categories from "./sections/Categories";
