@@ -28,6 +28,7 @@ import ChickenPork from "../../../assets/corndog/CHICKEN_PORK_FLOSS_CORNDOG.webp
 import { KEggProductModel } from "../../../utils/interfaces/AppInterfaces";
 import KEggAddToCartModal from "../components/KEggAddToCartModal";
 import useProductNavObserver from "../../../hooks/useProductNavObserver";
+import useApp from "../../../hooks/useApp";
 
 function KEggProducts() {
   const KEggProducts = [
@@ -95,6 +96,7 @@ function KEggProducts() {
 
   const [selectedProduct, setSelectedProduct] = useState<KEggProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const appContext = useApp();
 
   const { ref } = useProductNavObserver("K-Egg");
 
@@ -152,17 +154,24 @@ function KEggProducts() {
                       ₱{item.price}
                     </Text>
 
-                    <Button
-                      _hover={{ opacity: ".9" }}
-                      bg={index < 5 ? "palette.primary" : "palette.accent"}
-                      color={index < 5 ? "palette.accent" : "palette.primary"}
-                      onClick={() => {
-                        setSelectedProduct(item);
-                        onOpen();
-                      }}
-                    >
-                      Add to cart
-                    </Button>
+                    {appContext &&
+                    appContext.cartItems.filter(
+                      (cart) => cart.productName === item.productName
+                    ).length > 0 ? (
+                      <Text>Product already in cart</Text>
+                    ) : (
+                      <Button
+                        _hover={{ opacity: ".9" }}
+                        bg={index < 5 ? "palette.primary" : "palette.accent"}
+                        color={index < 5 ? "palette.accent" : "palette.primary"}
+                        onClick={() => {
+                          setSelectedProduct(item);
+                          onOpen();
+                        }}
+                      >
+                        Add to cart
+                      </Button>
+                    )}
                   </Center>
                 </Flex>
               </Card>

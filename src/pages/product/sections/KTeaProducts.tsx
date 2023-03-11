@@ -27,6 +27,7 @@ import WinterMelon from "../../../assets/ktea/WinterMelon-removebg-preview.webp"
 import { KTeaProductModel } from "../../../utils/interfaces/AppInterfaces";
 import KTeaAddToCartModal from "../components/KTeaAddToCartModal";
 import useProductNavObserver from "../../../hooks/useProductNavObserver";
+import useApp from "../../../hooks/useApp";
 
 function KTeaProducts() {
   const KTeaProducts = [
@@ -98,6 +99,7 @@ function KTeaProducts() {
   const [selectedProduct, setSelectedProduct] = useState<KTeaProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { ref } = useProductNavObserver("Ko-Tea");
+  const appContext = useApp();
 
   return (
     <Box ref={ref} paddingTop="3rem">
@@ -174,14 +176,21 @@ function KTeaProducts() {
                       </VStack>
                     </HStack>
 
-                    <Button
-                      onClick={() => {
-                        setSelectedProduct(item);
-                        onOpen();
-                      }}
-                    >
-                      Add to cart
-                    </Button>
+                    {appContext &&
+                    appContext.cartItems.filter(
+                      (cart) => cart.productName === item.productName
+                    ).length > 0 ? (
+                      <Text>Product already in cart</Text>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          setSelectedProduct(item);
+                          onOpen();
+                        }}
+                      >
+                        Add to cart
+                      </Button>
+                    )}
                   </Center>
                 </Flex>
               </Card>

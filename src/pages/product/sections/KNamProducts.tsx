@@ -22,6 +22,7 @@ import SpicyKorean from "../../../assets/knam/SPICY_KOREAN.webp";
 import KNamAddToCartModal from "../components/KNamAddToCartModal";
 import { KNamProductModel } from "../../../utils/interfaces/AppInterfaces";
 import useProductNavObserver from "../../../hooks/useProductNavObserver";
+import useApp from "../../../hooks/useApp";
 
 function KNamProducts() {
   const KNamProducts = [
@@ -64,6 +65,7 @@ function KNamProducts() {
 
   const [selectedProduct, setSelectedProduct] = useState<KNamProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const appContext = useApp();
 
   const { ref } = useProductNavObserver("Ko-Nam");
 
@@ -143,17 +145,24 @@ function KNamProducts() {
                       </VStack>
                     </HStack>
 
-                    <Button
-                      _hover={{ opacity: ".9" }}
-                      bg="palette.accent"
-                      color="palette.primary"
-                      onClick={() => {
-                        setSelectedProduct(item);
-                        onOpen();
-                      }}
-                    >
-                      Add to cart
-                    </Button>
+                    {appContext &&
+                    appContext.cartItems.filter(
+                      (cart) => cart.productName === item.productName
+                    ).length > 0 ? (
+                      <Text>Product already in cart</Text>
+                    ) : (
+                      <Button
+                        _hover={{ opacity: ".9" }}
+                        bg="palette.accent"
+                        color="palette.primary"
+                        onClick={() => {
+                          setSelectedProduct(item);
+                          onOpen();
+                        }}
+                      >
+                        Add to cart
+                      </Button>
+                    )}
                   </Center>
                 </Flex>
               </Card>
