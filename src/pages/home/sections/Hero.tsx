@@ -95,8 +95,8 @@ function Hero() {
         alignItems="center"
         pos="relative"
       >
-        <VStack align="start" w="80%">
-          <Text fontSize="5rem" fontWeight="black">
+        <VStack align="start" w="55%">
+          <Text fontSize="4rem" fontWeight="black">
             <Highlight
               query="KOREAN"
               styles={{
