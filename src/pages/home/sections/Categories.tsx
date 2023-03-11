@@ -46,7 +46,7 @@ function Categories() {
       name: "K - NAM",
       description: "An upside down satisfaction guaranteed",
       image: Category2,
-      link: "/products/k-name",
+      link: "/products/k-nam",
       items: [Nam1, Nam2, Nam3, Nam4, Nam5],
     },
     {
