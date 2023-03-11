@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Box,
   Button,
   Center,
@@ -10,6 +11,10 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
+
+import "swiper/css";
 
 interface CategoryProps {
   items: string[];
@@ -42,9 +47,33 @@ function CategoryCard(props: CategoryProps) {
             borderRadius=".3rem"
             boxShadow="5px 8px 16px rgba(0, 0, 0, .15)"
           >
-            {items.map((item) => {
-              return <Image w="2rem" src={item} key={item} />;
-            })}
+            <Swiper
+              modules={[Autoplay]}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              loop
+              spaceBetween={30}
+              slidesPerView={5}
+              style={{ padding: "2rem" }}
+            >
+              {items?.map((item) => {
+                return (
+                  <SwiperSlide key={item}>
+                    {/* <AspectRatio ratio={3 / 2}> */}
+                    <Image
+                      borderRadius=".5rem"
+                      objectFit="cover"
+                      w="25rem"
+                      objectPosition="center"
+                      src={item}
+                    />
+                    {/* </AspectRatio> */}
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </HStack>
         </Center>
         <Center flex={2} flexDir="column">
