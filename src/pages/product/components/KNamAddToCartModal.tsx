@@ -80,6 +80,7 @@ function KNamAddToCartModal({
       quantity,
       image: productInfo.image,
       totalAmount,
+      addOn: [{ name: "Garlic Mayo Dip", quantity: addOnQuantity }],
     };
 
     appContext?.setCartItems((prev) => [...prev, orderData]);

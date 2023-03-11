@@ -75,6 +75,10 @@ function KEggAddToCartModal({
       quantity,
       image: productInfo.image,
       totalAmount,
+      addOn: [
+        { name: "Garlic Butter", quantity: garlicButterQuantity },
+        { name: "Maple Butter", quantity: mapleButterQuantity },
+      ],
     };
 
     appContext?.setCartItems((prev) => [...prev, orderData]);

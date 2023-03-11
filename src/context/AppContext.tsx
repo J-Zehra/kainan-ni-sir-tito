@@ -28,6 +28,8 @@ function AppContext({ children }: ChildrenProp) {
 
   // INITIALIZE A STATE TO TRACK IF THE PAGE IS SCROLLED
   const [scrolled, setScrolled] = useState<boolean>(false);
+  const [isLocalStorageLoaded, setIsLocalStorageLoaded] =
+    useState<boolean>(false);
 
   // HANDLE THE SCROLL EVENT. CHANGE VARIABLES WHEN SCROLLED
   const handleScroll = () => {
@@ -47,11 +49,14 @@ function AppContext({ children }: ChildrenProp) {
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     }
+    setIsLocalStorageLoaded(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (isLocalStorageLoaded) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems, isLocalStorageLoaded]);
 
   // SET THE VALUES
   const values = useMemo(() => {

@@ -1,31 +1,24 @@
 /* eslint-disable react/require-default-props */
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { CartItemModel } from "../../../utils/interfaces/AppInterfaces";
 
 interface AddOns {
   name: string;
   quantity: number;
 }
 
-function SingleOrderTemplate({
+function MultiOrderTemplate({
   name,
   contact,
   address,
-  productName,
-  quantity,
+  items,
   total,
-  size,
-  pieces,
-  addOns,
 }: {
   name: string;
   contact: string;
   address: string;
-  productName: string;
-  quantity: number;
+  items: CartItemModel[];
   total: number;
-  addOns?: AddOns[];
-  size?: string | "";
-  pieces?: string | "";
 }) {
   return (
     <VStack gap="1.2rem" align="start" color="palette.secondary">
@@ -37,12 +30,18 @@ function SingleOrderTemplate({
       </VStack>
       <br />
       <Heading>Order</Heading>
-      <Text>{`${productName} ${size || ""}${pieces || ""} | ${quantity}`}</Text>
-      {addOns?.map((item) => {
+      {items.map((item) => {
         return (
-          <Text
-            key={item.name}
-          >{`Add-ons: ${item.name} | ${item.quantity}`}</Text>
+          <VStack key={item.productName}>
+            <Text>
+              {`${item.productName} ${item.size || ""}${item.pieces || ""} | ${
+                item.quantity
+              }`}
+              {item.addOn?.map((add: AddOns) => {
+                return ` | Add-ons: ${add.name} ${item.quantity}`;
+              })}
+            </Text>
+          </VStack>
         );
       })}
       <br />
@@ -52,4 +51,4 @@ function SingleOrderTemplate({
   );
 }
 
-export default SingleOrderTemplate;
+export default MultiOrderTemplate;

@@ -17,32 +17,27 @@ import { useState } from "react";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import emailjs from "@emailjs/browser";
 import ReactDOMServer from "react-dom/server";
+import KEggAddToCartModal from "./KEggAddToCartModal";
+import KEggProducts from "../sections/KEggProducts";
 import SingleOrderTemplate from "../templates/SingleOrderTemplate";
+import useApp from "../../../hooks/useApp";
+import MultiOrderTemplate from "../templates/MultiOrderTemplate";
 
 interface AddOns {
   name: string;
   quantity: number;
 }
 
-function PlaceOrderModal({
+function PlaceOrderModalMulti({
   isOpen,
   onClose,
-  productName,
-  size,
-  pieces,
-  quantity,
   totalAmount,
-  addOns,
 }: {
   isOpen: boolean;
-  onClose: () => void;
-  productName: string;
-  size?: string;
-  pieces?: string;
-  quantity: number;
   totalAmount: number;
-  addOns?: AddOns[];
+  onClose: () => void;
 }) {
+  const appContext = useApp();
   const [name, setName] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [contactNumber, setContactNumber] = useState<string>("");
@@ -63,15 +58,11 @@ function PlaceOrderModal({
     }
 
     const htmlstring = ReactDOMServer.renderToString(
-      <SingleOrderTemplate
+      <MultiOrderTemplate
         address={address}
         name={name}
+        items={appContext?.cartItems || []}
         contact={contactNumber}
-        productName={productName}
-        quantity={quantity}
-        size={size}
-        addOns={addOns}
-        pieces={pieces}
         total={totalAmount}
       />
     );
@@ -160,4 +151,4 @@ function PlaceOrderModal({
   );
 }
 
-export default PlaceOrderModal;
+export default PlaceOrderModalMulti;

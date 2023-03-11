@@ -8,6 +8,7 @@ import {
   Image,
   Slide,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -16,6 +17,8 @@ import { BsFillPatchCheckFill, BsFillTrashFill } from "react-icons/bs";
 import Lottie from "react-lottie-player";
 import empty from "../assets/empty.json";
 import useApp from "../hooks/useApp";
+import PlaceOrderModal from "../pages/product/components/PlaceOrderModal";
+import PlaceOrderModalMulti from "../pages/product/components/PlaceOrderModalMulti";
 import { CartItemModel } from "../utils/interfaces/AppInterfaces";
 
 function SlideCartItem({
@@ -44,6 +47,9 @@ function SlideCartItem({
     });
     setTotalAmount(total);
   }, [appContext?.cartItems]);
+
+  const { isOpen: isPlaceOrderOpen, onClose, onOpen } = useDisclosure();
+  console.log(appContext?.cartItems);
 
   return (
     <Slide direction="right" in={isOpen} style={{ zIndex: 10 }}>
@@ -99,6 +105,11 @@ function SlideCartItem({
               _hover={{ opacity: ".9" }}
               leftIcon={<BsFillPatchCheckFill />}
               p="1.5rem"
+              onClick={() => {
+                if (appContext?.cartItems && appContext.cartItems.length > 0) {
+                  onOpen();
+                }
+              }}
               bg="palette.accent"
               color="palette.primary"
             >
@@ -180,6 +191,13 @@ function SlideCartItem({
           </VStack>
         </Flex>
       </VStack>
+      {isPlaceOrderOpen ? (
+        <PlaceOrderModalMulti
+          totalAmount={totalAmount}
+          isOpen={isPlaceOrderOpen}
+          onClose={onClose}
+        />
+      ) : null}
     </Slide>
   );
 }

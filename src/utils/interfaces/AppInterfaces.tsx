@@ -11,12 +11,18 @@ export interface KTeaProductModel {
   description: string;
 }
 
+type AddOn = {
+  name: string;
+  quantity: number;
+};
+
 export interface KNamProductModel {
   image: string;
   productName: string;
   fivePieces: number;
   tenPieces: number;
   description: string;
+  addOn: AddOn[];
 }
 
 export interface KEggProductModel {
@@ -24,6 +30,7 @@ export interface KEggProductModel {
   productName: string;
   price: number;
   description: string;
+  addOn: AddOn[];
 }
 
 export interface CartItemModel {
@@ -31,6 +38,7 @@ export interface CartItemModel {
   productName: string;
   totalAmount: number;
   quantity: number;
+  addOn?: AddOn[];
   price?: number;
   size?: string;
   pieces?: string;
