@@ -10,15 +10,15 @@ function HowItWorks() {
   const items = [
     {
       image: Step1,
-      details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      details: "Choose From Our Weekly Menu",
     },
     {
       image: Step2,
-      details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      details: "We Will Deliver Your Purchase",
     },
     {
       image: Step3,
-      details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      details: "Enjoy Our Savoury Korean Foods",
     },
   ];
 
