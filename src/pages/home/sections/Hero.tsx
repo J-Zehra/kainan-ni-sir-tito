@@ -179,17 +179,19 @@ function Hero() {
                       <Image
                         borderRadius="1rem"
                         objectFit="cover"
-                        w="10rem"
+                        w={item.title === "Ko-Tea" ? "5rem" : "10rem"}
                         objectPosition="center"
                         src={item.image}
                       />
                     </Center>
                     <Divider opacity=".1" borderColor="palette.primary" />
                     <Wrap
+                      as={Center}
                       justify="center"
                       align="center"
                       flex={2.5}
                       p="1rem"
+                      h="100%"
                       spacing="1rem"
                     >
                       {item.products.map((image) => {
@@ -198,7 +200,7 @@ function Hero() {
                             <Image
                               borderRadius=".5rem"
                               objectFit="cover"
-                              w="5rem"
+                              w={item.title === "Ko-Tea" ? "3.5rem" : "5rem"}
                               filter="drop-shadow(1px 1px 16px rgba(0, 0, 0, .5))"
                               objectPosition="center"
                               src={image}
