@@ -7,12 +7,12 @@ function VideoPromotion() {
       id="promote"
       w={breakPoints}
       margin="auto"
-      paddingBlock="5rem"
+      paddingBlock="1rem"
       placeContent="center"
       flexDir="column"
     >
-      <Text color="palette.secondary" paddingBlock="2rem">
-        Basta text dito
+      <Text color="palette.secondary" paddingBlock="5rem">
+        Satisfy your Cravings
       </Text>
       <AspectRatio
         ratio={4 / 2}
