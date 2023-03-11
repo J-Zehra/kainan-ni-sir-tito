@@ -115,7 +115,12 @@ function KTeaProducts() {
                     flex={1}
                     align="center"
                   >
-                    <Image src={item.image} w="5rem" h="8rem" />
+                    <Image
+                      src={item.image}
+                      w="5rem"
+                      h="8rem"
+                      filter="drop-shadow(1px 1px 16px rgba(0, 0, 0, .3))"
+                    />
                     <Text
                       fontWeight="bold"
                       textAlign="center"

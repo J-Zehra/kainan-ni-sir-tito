@@ -50,10 +50,11 @@ function CategoryCard(props: CategoryProps) {
             <Swiper
               modules={[Autoplay]}
               autoplay={{
-                delay: 2000,
+                delay: 3000,
                 disableOnInteraction: false,
               }}
               loop
+              loopPreventsSliding
               spaceBetween={30}
               slidesPerView={5}
               style={{ padding: "2rem" }}
@@ -66,6 +67,7 @@ function CategoryCard(props: CategoryProps) {
                       borderRadius=".5rem"
                       objectFit="cover"
                       w="25rem"
+                      filter="drop-shadow(1px 1px 16px rgba(0, 0, 0, .5))"
                       objectPosition="center"
                       src={item}
                     />

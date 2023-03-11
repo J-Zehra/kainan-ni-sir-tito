@@ -84,7 +84,12 @@ function KNamProducts() {
                     color="palette.primary"
                     align="center"
                   >
-                    <Image src={item.image} w="8rem" h="6rem" />
+                    <Image
+                      src={item.image}
+                      w="8rem"
+                      h="6rem"
+                      filter="drop-shadow(1px 1px 16px rgba(0, 0, 0, .3))"
+                    />
                     <Text
                       fontWeight="bold"
                       textAlign="center"
