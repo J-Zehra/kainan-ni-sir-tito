@@ -8,7 +8,7 @@ function HowItWorksCard({
 }) {
   return (
     <WrapItem w="20rem">
-      <VStack gap="2rem">
+      <VStack gap="2rem" w="100%">
         <Box>
           <Image src={items.image} />
         </Box>
