@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import App from "./App";
 import theme from "./utils/interfaces/theme";
 import "@fontsource/recursive/400.css";
@@ -15,12 +16,16 @@ import "@fontsource/lato/900.css";
 
 import AppContext from "./context/AppContext";
 
+const client = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <AppContext>
-        <App />
-      </AppContext>
+      <QueryClientProvider client={client}>
+        <AppContext>
+          <App />
+        </AppContext>
+      </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

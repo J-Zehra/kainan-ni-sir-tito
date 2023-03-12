@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   Box,
   Button,
@@ -31,10 +32,10 @@ function SlideCartItem({
   const appContext = useApp();
   const [totalAmount, setTotalAmount] = useState<number>(0);
 
-  const removeItem = (product: string) => {
+  const removeItem = (id: string) => {
     if (appContext?.cartItems) {
       const updatedCartItems = appContext?.cartItems.filter(
-        (cartItem) => cartItem.productName !== product
+        (cartItem) => cartItem._id !== id
       );
       appContext?.setCartItems(updatedCartItems);
     }
@@ -128,15 +129,15 @@ function SlideCartItem({
                     color="palette.secondary"
                     bg="white"
                     align="center"
-                    key={item.productName}
+                    key={item._id}
                   >
                     <HStack spacing="1rem">
                       <Box w="3rem">
-                        <Image src={item.image} />
+                        <Image src={item.product_image.asset.url} />
                       </Box>
                       <VStack align="start" spacing=".1rem">
                         <Text fontWeight="semibold" fontSize="1.1rem">
-                          {item.productName}
+                          {item.product_name}
                         </Text>
                         <HStack fontSize=".9rem">
                           <Text
@@ -161,7 +162,7 @@ function SlideCartItem({
                       fontSize="1.2rem"
                       opacity=".8"
                       cursor="pointer"
-                      onClick={() => removeItem(item.productName)}
+                      onClick={() => removeItem(item._id)}
                       _hover={{ opacity: "1" }}
                     >
                       <BsFillTrashFill />

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   Box,
   Button,
@@ -51,29 +52,36 @@ function KEggAddToCartModal({
   useEffect(() => {
     if (garlicButterQuantity > 0 && mapleButterQuantity > 0) {
       setTotalAmount(
-        productInfo.price * quantity +
+        productInfo.product_price * quantity +
           GarlicButter * garlicButterQuantity +
           MapleButter * mapleButterQuantity
       );
     } else if (garlicButterQuantity > 0 && mapleButterQuantity === 0) {
       setTotalAmount(
-        productInfo.price * quantity + GarlicButter * garlicButterQuantity
+        productInfo.product_price * quantity +
+          GarlicButter * garlicButterQuantity
       );
     } else if (garlicButterQuantity === 0 && mapleButterQuantity > 0) {
       setTotalAmount(
-        productInfo.price * quantity + MapleButter * mapleButterQuantity
+        productInfo.product_price * quantity + MapleButter * mapleButterQuantity
       );
     } else {
-      setTotalAmount(productInfo.price * quantity);
+      setTotalAmount(productInfo.product_price * quantity);
     }
-  }, [garlicButterQuantity, mapleButterQuantity, productInfo.price, quantity]);
+  }, [
+    garlicButterQuantity,
+    mapleButterQuantity,
+    productInfo.product_price,
+    quantity,
+  ]);
 
   const addToCart = () => {
     const orderData: CartItemModel = {
-      productName: productInfo.productName,
-      price: productInfo.price,
+      _id: productInfo._id,
+      product_name: productInfo.product_name,
+      price: productInfo.product_price,
       quantity,
-      image: productInfo.image,
+      product_image: productInfo.product_image,
       totalAmount,
       addOn: [
         { name: "Garlic Butter", quantity: garlicButterQuantity },
@@ -108,7 +116,7 @@ function KEggAddToCartModal({
       <ModalOverlay />
       <ModalContent color="palette.secondary">
         <ModalHeader color="palette.secondary">
-          <Text> {productInfo.productName}</Text>
+          <Text> {productInfo.product_name}</Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -284,7 +292,7 @@ function KEggAddToCartModal({
       </ModalContent>
       {isPlaceOrderModalOpen ? (
         <PlaceOrderModal
-          productName={productInfo.productName}
+          productName={productInfo.product_name}
           quantity={quantity}
           totalAmount={totalAmount}
           addOns={[
