@@ -19,11 +19,12 @@ import SlideCartItem from "../SlideCartItem";
 import NavLink from "./components/NavLink";
 import cartAnimation from "../../assets/cart-animation.json";
 import cartAnimation2 from "../../assets/cart-animation-2.json";
+import MobileMenu from "./MobileMenu";
 
 function Navbar(props: NavItems): ReactElement {
   const { logo, navLinks } = props;
   const appContext = useApp();
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   // TRACK SCREEN SIZE TO ADJUST THE NAV APPEARANCE
   const [isSmallerThan850] = useMediaQuery("(max-width: 48em)");
@@ -53,7 +54,40 @@ function Navbar(props: NavItems): ReactElement {
         </Link>
         {/* NAVIGATION LINKS */}
         {isSmallerThan850 ? (
-          <Text>Mobile View</Text>
+          <HStack spacing=".1rem">
+            <Box
+              fontSize="1.5rem"
+              color="palette.accent"
+              transition="all .3s ease"
+              _hover={{ transform: "scale(.9)" }}
+              cursor="pointer"
+              onClick={onOpen}
+              pos="relative"
+            >
+              <Lottie
+                loop
+                animationData={cartAnimation2}
+                play
+                style={{ width: 70, height: 70 }}
+              />
+              <Box pos="absolute" top="1rem" right="1rem">
+                <Center
+                  fontSize=".6rem"
+                  fontFamily="inter"
+                  fontWeight="medium"
+                  bg="palette.accent"
+                  w=".6rem"
+                  p=".6rem"
+                  h=".6rem"
+                  borderRadius="10rem"
+                  color="palette.primary"
+                >
+                  {appContext?.cartItems.length}
+                </Center>
+              </Box>
+            </Box>
+            <MobileMenu />
+          </HStack>
         ) : (
           <HStack spacing="2rem">
             {navLinks.map((nav) => {
@@ -67,8 +101,9 @@ function Navbar(props: NavItems): ReactElement {
           transition="all .3s ease"
           _hover={{ transform: "scale(.9)" }}
           cursor="pointer"
-          onClick={onToggle}
+          onClick={onOpen}
           pos="relative"
+          display={{ base: "none", md: "block" }}
         >
           <Lottie
             loop
@@ -93,7 +128,7 @@ function Navbar(props: NavItems): ReactElement {
           </Box>
         </Box>
       </Flex>
-      <SlideCartItem isOpen={isOpen} onToggle={onToggle} />
+      <SlideCartItem isOpen={isOpen} onDrawerClose={onClose} />
     </Box>
   );
 }

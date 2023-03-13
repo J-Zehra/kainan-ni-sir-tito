@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   Box,
   Button,
@@ -44,18 +45,24 @@ function KTeaAddToCartModal({
 
   useEffect(() => {
     if (size === "Medium") {
-      setTotalAmount(productInfo.mediumPrice * quantity);
+      setTotalAmount(productInfo.product_medium_price * quantity);
     } else if (size === "Large") {
-      setTotalAmount(productInfo.largePrice * quantity);
+      setTotalAmount(productInfo.product_large_price * quantity);
     }
-  }, [productInfo.largePrice, productInfo.mediumPrice, size, quantity]);
+  }, [
+    size,
+    quantity,
+    productInfo.product_medium_price,
+    productInfo.product_large_price,
+  ]);
 
   const addToCart = () => {
     const orderData: CartItemModel = {
-      productName: productInfo.productName,
+      _id: productInfo._id,
+      product_name: productInfo.product_name,
       size,
       quantity,
-      image: productInfo.image,
+      product_image: productInfo.product_image,
       totalAmount,
     };
 
@@ -85,7 +92,7 @@ function KTeaAddToCartModal({
       <ModalOverlay />
       <ModalContent color="palette.secondary">
         <ModalHeader color="palette.secondary">
-          <Text> {productInfo.productName}</Text>
+          <Text> {productInfo.product_name}</Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -186,7 +193,7 @@ function KTeaAddToCartModal({
       </ModalContent>
       {isPlaceOrderModalOpen ? (
         <PlaceOrderModal
-          productName={productInfo.productName}
+          productName={productInfo.product_name}
           quantity={quantity}
           size={size}
           totalAmount={totalAmount}

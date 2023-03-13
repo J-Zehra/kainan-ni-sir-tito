@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/require-default-props */
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { CartItemModel } from "../../../utils/interfaces/AppInterfaces";
@@ -32,9 +33,9 @@ function MultiOrderTemplate({
       <Heading>Order</Heading>
       {items.map((item) => {
         return (
-          <VStack key={item.productName}>
+          <VStack key={item._id}>
             <Text>
-              {`${item.productName} ${item.size || ""}${item.pieces || ""} | ${
+              {`${item.product_name} ${item.size || ""}${item.pieces || ""} | ${
                 item.quantity
               }`}
               {item.addOn?.map((add: AddOns) => {

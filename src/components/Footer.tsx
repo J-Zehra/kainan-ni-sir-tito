@@ -4,6 +4,7 @@ import {
   HStack,
   Image,
   Link,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -17,7 +18,7 @@ import Logo from "../assets/logo.svg";
 function Footer() {
   return (
     <Center
-      p="4rem"
+      p={{ base: "1.5rem", md: "4rem" }}
       w="100%"
       bgImage={BgImage}
       bgRepeat="no-repeat"
@@ -25,53 +26,55 @@ function Footer() {
       bgSize="cover"
     >
       <Center gap="3rem" w={breakPoints} margin="auto" flexDir="column">
-        <HStack align="start" w="100%" justifyContent="space-between">
-          <VStack align="start">
+        <Stack
+          direction={{ base: "column", md: "row" }}
+          align="start"
+          w="100%"
+          justifyContent="space-between"
+        >
+          <VStack align={{ base: "center", md: "start" }} spacing="1.6rem">
             <Image src={Logo} />
-            <Text opacity=".6" fontFamily="inter" fontSize=".9rem">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Text>
-          </VStack>
-          <VStack align="start" spacing="1rem">
-            <Text>Contact Us.</Text>
-            <HStack
-              spacing="2rem"
-              fontFamily="inter"
-              fontSize=".9rem"
-              opacity=".8"
-            >
-              <HStack>
-                <Box color="palette.accent">
-                  <AiTwotonePhone />
-                </Box>
-                <Text>0994 575 4100</Text>
+            <VStack align={{ base: "center", md: "start" }} spacing="1rem">
+              <Text>Contact Us.</Text>
+              <HStack
+                spacing="2rem"
+                fontFamily="inter"
+                fontSize=".9rem"
+                opacity=".8"
+              >
+                <HStack>
+                  <Box color="palette.accent">
+                    <AiTwotonePhone />
+                  </Box>
+                  <Text>0994 575 4100</Text>
+                </HStack>
+                <HStack>
+                  <Box color="palette.accent">
+                    <AiFillInstagram />
+                  </Box>
+                  <Text>Tito Loresto</Text>
+                </HStack>
               </HStack>
-              <HStack>
-                <Box color="palette.accent">
-                  <AiFillInstagram />
-                </Box>
-                <Text>Tito Loresto</Text>
+              <HStack
+                fontFamily="inter"
+                spacing="2rem"
+                fontSize=".9rem"
+                opacity=".8"
+              >
+                <HStack>
+                  <Box color="palette.accent">
+                    <BsFacebook />
+                  </Box>
+                  <Text>ChefMate Diner</Text>
+                </HStack>
+                <HStack>
+                  <Box color="palette.accent">
+                    <AiFillYahoo />
+                  </Box>
+                  <Text>xzljet@yahoo.com </Text>
+                </HStack>
               </HStack>
-            </HStack>
-            <HStack
-              fontFamily="inter"
-              spacing="2rem"
-              fontSize=".9rem"
-              opacity=".8"
-            >
-              <HStack>
-                <Box color="palette.accent">
-                  <BsFacebook />
-                </Box>
-                <Text>ChefMate Diner</Text>
-              </HStack>
-              <HStack>
-                <Box color="palette.accent">
-                  <AiFillYahoo />
-                </Box>
-                <Text>xzljet@yahoo.com </Text>
-              </HStack>
-            </HStack>
+            </VStack>
           </VStack>
           <VStack>
             <HStack
@@ -83,15 +86,17 @@ function Footer() {
               <Box color="palette.accent">
                 <HiLocationMarker />
               </Box>
-              <Text w="15rem">
+              <Text w="100%">
                 251 General Yngente Avenue Brgy. Talolong, Lopez, Philippines
               </Text>
             </HStack>
           </VStack>
-        </HStack>
-        <HStack
+        </Stack>
+        <Stack
+          direction={{ base: "column", md: "row" }}
           fontFamily="inter"
           w="100%"
+          align={{ base: "center", md: "start" }}
           justifyContent="space-between"
           fontSize=".9rem"
         >
@@ -100,7 +105,7 @@ function Footer() {
             <Link color="palette.accent">Privacy Policy</Link>
             <Text>| All rights reserved.</Text>
           </HStack>
-        </HStack>
+        </Stack>
       </Center>
     </Center>
   );

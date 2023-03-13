@@ -4,11 +4,12 @@ export interface NavItems {
 }
 
 export interface KTeaProductModel {
-  image: string;
-  productName: string;
-  mediumPrice: number;
-  largePrice: number;
-  description: string;
+  _id: string;
+  product_name: string;
+  product_description: string;
+  product_image: { asset: { url: string } };
+  product_medium_price: number;
+  product_large_price: number;
 }
 
 type AddOn = {
@@ -17,25 +18,28 @@ type AddOn = {
 };
 
 export interface KNamProductModel {
-  image: string;
-  productName: string;
-  fivePieces: number;
-  tenPieces: number;
-  description: string;
+  _id: string;
+  product_image: { asset: { url: string } };
+  product_name: string;
+  product_5pcs_price: number;
+  product_10pcs_price: number;
+  product_description: string;
   addOn?: AddOn[];
 }
 
 export interface KEggProductModel {
-  image: string;
-  productName: string;
-  price: number;
-  description: string;
+  _id: string;
+  product_image: { asset: { url: string } };
+  product_name: string;
+  product_price: number;
+  product_description: string;
   addOn?: AddOn[];
 }
 
 export interface CartItemModel {
-  image: string;
-  productName: string;
+  _id: string;
+  product_image: { asset: { url: string } };
+  product_name: string;
   totalAmount: number;
   quantity: number;
   addOn?: AddOn[];

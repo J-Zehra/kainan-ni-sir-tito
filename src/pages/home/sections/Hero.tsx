@@ -9,6 +9,7 @@ import {
   Highlight,
   HStack,
   Image,
+  Stack,
   Text,
   VStack,
   Wrap,
@@ -95,8 +96,8 @@ function Hero() {
         alignItems="center"
         pos="relative"
       >
-        <VStack align="start" w="55%">
-          <Text fontSize="4rem" fontWeight="black">
+        <VStack align="start" w={{ base: "100%", md: "55%" }}>
+          <Text fontSize={{ base: "3rem", md: "4rem" }} fontWeight="black">
             <Highlight
               query="KOREAN"
               styles={{
@@ -106,15 +107,24 @@ function Hero() {
               Save the taste of KOREAN food.
             </Highlight>
           </Text>
-          <Text w="60%" fontSize="1.4rem" fontWeight="light" fontFamily="lato">
+          <Text
+            w={{ base: "100%", md: "60%" }}
+            fontSize={{ base: "1.2rem", md: "1.4rem" }}
+            fontWeight="light"
+            fontFamily="lato"
+          >
             Experience the perfect blend of sweet, salty, and spicy as you
             indulge in the deliciousness of Korean food.
           </Text>
-          <HStack spacing="1rem" paddingTop="2.5rem">
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            spacing="1rem"
+            paddingTop="2.5rem"
+          >
             <Button
-              p="1.8rem 3rem 1.8rem 1.8rem"
+              p="1.8em 3em 1.8em 1.8em"
               bg="palette.accent"
-              fontSize="1.1rem"
+              fontSize={{ base: ".9rem", md: "1.1rem" }}
               fontWeight="bold"
               borderBottomRightRadius="5rem"
               leftIcon={<AiOutlineFileSearch fontSize="1.5rem" />}
@@ -126,20 +136,21 @@ function Hero() {
             <Button
               as="a"
               href="#promote"
-              p="1.8rem 1.8rem 1.8rem 3rem"
+              fontSize={{ base: ".9rem", md: "1.1rem" }}
+              p="1.8em 1.8em 1.8em 3em"
               color="palette.secondary"
               bg="palette.primary"
-              fontSize="1.1rem"
               fontWeight="bold"
               borderTopLeftRadius="5rem"
               rightIcon={<AiOutlinePlayCircle fontSize="1.5rem" />}
             >
               Promotional Video
             </Button>
-          </HStack>
+          </Stack>
         </VStack>
 
         <Box
+          display={{ base: "none", lg: "block" }}
           p="2rem"
           w="30rem"
           h="40rem"

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   Box,
   Button,
@@ -7,6 +8,7 @@ import {
   Flex,
   HStack,
   Image,
+  Skeleton,
   Text,
   useDisclosure,
   VStack,
@@ -14,177 +16,138 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import ProductSectionTitle from "../components/ProductSectionTitle";
-import CheeseCake from "../../../assets/ktea/Cheesecake__1_-removebg-preview.webp";
-import ChocoCheesCake from "../../../assets/ktea/Choco___Choco_Cheesecake-removebg-preview.webp";
-import Hokkaido from "../../../assets/ktea/Hokkaido-removebg-preview.webp";
-import Macha from "../../../assets/ktea/Macha-removebg-preview.webp";
-import Okinawa from "../../../assets/ktea/Okinawa-removebg-preview.webp";
-import OreoCheeseCake from "../../../assets/ktea/Oreo_Cheesecake-removebg-preview.webp";
-import OreoMatcha from "../../../assets/ktea/Oreo_Matcha-removebg-preview.webp";
-import RedVelvet from "../../../assets/ktea/Red_Velvet_Cheesecake-removebg-preview.webp";
-import WinterMelon from "../../../assets/ktea/WinterMelon-removebg-preview.webp";
 import { KTeaProductModel } from "../../../utils/interfaces/AppInterfaces";
 import KTeaAddToCartModal from "../components/KTeaAddToCartModal";
 import useProductNavObserver from "../../../hooks/useProductNavObserver";
+import useApp from "../../../hooks/useApp";
+import client from "../../../client";
 
 function KTeaProducts() {
-  const KTeaProducts = [
-    {
-      image: CheeseCake,
-      productName: "Cheese Cake",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: Macha,
-      productName: "Macha",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: ChocoCheesCake,
-      productName: "Choco Cheese Cake",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: Hokkaido,
-      productName: "Hokkaido",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: Okinawa,
-      productName: "Okinawa",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: OreoCheeseCake,
-      productName: "Oreo Cheese Cake",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: OreoMatcha,
-      productName: "Oreo Matcha",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: RedVelvet,
-      productName: "Red Velvet",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-    {
-      image: WinterMelon,
-      productName: "Winter Melon",
-      mediumPrice: 94,
-      largePrice: 104,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
-    },
-  ];
-
   const [selectedProduct, setSelectedProduct] = useState<KTeaProductModel>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { ref } = useProductNavObserver("Ko-Tea");
+  const appContext = useApp();
+
+  const getProducts = async () => {
+    const data = await client.fetch(
+      `*[_type == "kotea"]{ 
+        _id,
+        product_name,
+        product_description,
+        product_medium_price,
+        product_large_price,
+        product_image { asset -> {url} }
+      }`
+    );
+    return data as KTeaProductModel[];
+  };
+
+  const { data, isFetching, isLoading } = useQuery({
+    queryKey: ["k-tea"],
+    queryFn: getProducts,
+  });
+
+  console.log(data);
 
   return (
     <Box ref={ref} paddingTop="3rem">
       <ProductSectionTitle title="Ko-Tea" />
       <Wrap p="1rem" spacing="1.5rem" paddingTop="2rem" justify="center">
-        {KTeaProducts.map((item) => {
+        {data?.map((item) => {
           return (
-            <WrapItem key={item.productName}>
-              <Card w="21rem" bg="#ECECEC">
-                <Flex flexDir="column">
-                  <VStack
-                    w="100%"
-                    p="1.5rem"
-                    justify="center"
-                    flex={1}
-                    align="center"
-                  >
-                    <Image
-                      src={item.image}
-                      w="5rem"
-                      h="8rem"
-                      filter="drop-shadow(1px 1px 16px rgba(0, 0, 0, .3))"
-                    />
-                    <Text
-                      fontWeight="bold"
-                      textAlign="center"
-                      fontSize="1.1rem"
+            <WrapItem key={item._id}>
+              <Skeleton isLoaded={!isFetching && !isLoading}>
+                <Card w="21rem" bg="#ECECEC">
+                  <Flex flexDir="column">
+                    <VStack
+                      w="100%"
+                      p="1.5rem"
+                      justify="center"
+                      flex={1}
+                      align="center"
                     >
-                      {item.productName}
-                    </Text>
-                    <Text
-                      fontWeight="normal"
-                      fontSize=".9rem"
-                      fontFamily="inter"
-                      textAlign="center"
-                    >
-                      {item.description}
-                    </Text>
-                  </VStack>
+                      <Image
+                        src={item.product_image.asset.url}
+                        w="5rem"
+                        h="8rem"
+                        filter="drop-shadow(1px 1px 16px rgba(0, 0, 0, .3))"
+                      />
+                      <Text
+                        fontWeight="bold"
+                        textAlign="center"
+                        fontSize="1.1rem"
+                      >
+                        {item.product_name}
+                      </Text>
+                      <Text
+                        fontWeight="normal"
+                        fontSize=".9rem"
+                        fontFamily="inter"
+                        textAlign="center"
+                      >
+                        {item.product_description}
+                      </Text>
+                    </VStack>
 
-                  <Center
-                    borderBottomRadius=".3rem"
-                    p="1.2rem"
-                    bg="palette.accent"
-                    flex={1.5}
-                    flexDir="column"
-                    gap="1.2rem"
-                  >
-                    <HStack color="palette.primary" spacing="2rem">
-                      <VStack>
-                        <Text
-                          fontSize=".8rem"
-                          fontWeight="normal"
-                          fontFamily="inter"
-                        >
-                          12oz
-                        </Text>
-                        <Text fontWeight="bold" fontSize="1.5rem">
-                          ₱{item.mediumPrice}
-                        </Text>
-                      </VStack>
-                      <Box w=".1rem" bg="white" h="4rem" />
-                      <VStack>
-                        <Text
-                          fontSize=".8rem"
-                          fontWeight="normal"
-                          fontFamily="inter"
-                        >
-                          16oz
-                        </Text>
-                        <Text fontWeight="bold" fontSize="1.5rem">
-                          ₱{item.largePrice}
-                        </Text>
-                      </VStack>
-                    </HStack>
-
-                    <Button
-                      onClick={() => {
-                        setSelectedProduct(item);
-                        onOpen();
-                      }}
+                    <Center
+                      borderBottomRadius=".3rem"
+                      p="1.2rem"
+                      bg="palette.accent"
+                      flex={1.5}
+                      flexDir="column"
+                      gap="1.2rem"
                     >
-                      Add to cart
-                    </Button>
-                  </Center>
-                </Flex>
-              </Card>
+                      <HStack color="palette.primary" spacing="2rem">
+                        <VStack>
+                          <Text
+                            fontSize=".8rem"
+                            fontWeight="normal"
+                            fontFamily="inter"
+                          >
+                            12oz
+                          </Text>
+                          <Text fontWeight="bold" fontSize="1.5rem">
+                            ₱{item.product_medium_price}
+                          </Text>
+                        </VStack>
+                        <Box w=".1rem" bg="white" h="4rem" />
+                        <VStack>
+                          <Text
+                            fontSize=".8rem"
+                            fontWeight="normal"
+                            fontFamily="inter"
+                          >
+                            16oz
+                          </Text>
+                          <Text fontWeight="bold" fontSize="1.5rem">
+                            ₱{item.product_large_price}
+                          </Text>
+                        </VStack>
+                      </HStack>
+
+                      {appContext &&
+                      appContext.cartItems.filter(
+                        (cart) => cart._id === item._id
+                      ).length > 0 ? (
+                        <Text color="palette.primary">
+                          Product already in cart
+                        </Text>
+                      ) : (
+                        <Button
+                          onClick={() => {
+                            setSelectedProduct(item);
+                            onOpen();
+                          }}
+                        >
+                          Add to cart
+                        </Button>
+                      )}
+                    </Center>
+                  </Flex>
+                </Card>
+              </Skeleton>
             </WrapItem>
           );
         })}

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   Box,
   Button,
@@ -51,34 +52,37 @@ function KNamAddToCartModal({
     if (pieces === "5 Pieces") {
       if (addOnQuantity > 0) {
         setTotalAmount(
-          productInfo.fivePieces * quantity + GarlicMayoDipPrice * addOnQuantity
+          productInfo.product_5pcs_price * quantity +
+            GarlicMayoDipPrice * addOnQuantity
         );
       } else {
-        setTotalAmount(productInfo.fivePieces * quantity);
+        setTotalAmount(productInfo.product_5pcs_price * quantity);
       }
     } else if (pieces === "10 Pieces") {
       if (addOnQuantity > 0) {
         setTotalAmount(
-          productInfo.tenPieces * quantity + GarlicMayoDipPrice * addOnQuantity
+          productInfo.product_10pcs_price * quantity +
+            GarlicMayoDipPrice * addOnQuantity
         );
       } else {
-        setTotalAmount(productInfo.tenPieces * quantity);
+        setTotalAmount(productInfo.product_10pcs_price * quantity);
       }
     }
   }, [
     addOnQuantity,
     pieces,
-    productInfo.fivePieces,
-    productInfo.tenPieces,
+    productInfo.product_10pcs_price,
+    productInfo.product_5pcs_price,
     quantity,
   ]);
 
   const addToCart = () => {
     const orderData: CartItemModel = {
-      productName: productInfo.productName,
+      _id: productInfo._id,
+      product_name: productInfo.product_name,
       pieces,
       quantity,
-      image: productInfo.image,
+      product_image: productInfo.product_image,
       totalAmount,
       addOn: [{ name: "Garlic Mayo Dip", quantity: addOnQuantity }],
     };
@@ -110,7 +114,7 @@ function KNamAddToCartModal({
       <ModalOverlay />
       <ModalContent color="palette.secondary">
         <ModalHeader color="palette.secondary">
-          <Text> {productInfo.productName}</Text>
+          <Text> {productInfo.product_name}</Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -256,7 +260,7 @@ function KNamAddToCartModal({
       </ModalContent>
       {isPlaceOrderModalOpen ? (
         <PlaceOrderModal
-          productName={productInfo.productName}
+          productName={productInfo.product_name}
           quantity={quantity}
           pieces={pieces}
           addOns={[{ name: "Garlic Mayo Dip", quantity }]}
