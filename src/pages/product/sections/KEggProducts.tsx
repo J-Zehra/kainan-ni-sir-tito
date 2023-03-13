@@ -35,7 +35,8 @@ function KEggProducts() {
       image: KEggSpam,
       productName: "K-Egg Spam",
       price: 158,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing eli",
+      description:
+        "Brioche Bread, Spam, Egg, Cheddar Cheese, Choice of Sweet Mayo or Sriracha Mayo, & Dressing",
     },
     {
       image: PremiumBulgogi,
