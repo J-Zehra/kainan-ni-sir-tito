@@ -52,7 +52,7 @@ function Footer() {
                   <Box color="palette.accent">
                     <AiFillInstagram />
                   </Box>
-                  <Text>Tito Loresto</Text>
+                  <Text>Tito Loreto</Text>
                 </HStack>
               </HStack>
               <HStack
